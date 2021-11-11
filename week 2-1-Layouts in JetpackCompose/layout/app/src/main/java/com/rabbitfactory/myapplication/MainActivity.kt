@@ -5,6 +5,8 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -51,6 +53,25 @@ fun BodyContent(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(8.dp)) {
         Text(text = "Hi there!")
         Text(text = "Thanks for going through the Layouts codelab")
+    }
+}
+
+@Composable
+fun SimpleList() {
+    val scrollState = rememberScrollState()
+
+    Column(Modifier.verticalScroll(scrollState)) {
+        repeat(100) {
+            Text("Item #$it")
+        }
+    }
+}
+
+@Preview
+@Composable
+fun ScrollPreview(){
+    MyApplicationTheme{
+        SimpleList()
     }
 }
 
