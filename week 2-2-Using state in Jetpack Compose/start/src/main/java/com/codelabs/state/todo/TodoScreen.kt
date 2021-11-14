@@ -202,14 +202,9 @@ fun TodoItemInput(
                     .padding(end = 8.dp),
                 submit
             )
-
-            // New code: Replace the call to TodoEditButton with the content of the slot
-
             Spacer(modifier = Modifier.width(8.dp))
             Box(Modifier.align(Alignment.CenterVertically)) { buttonSlot() }
 
-
-            // End new code
         }
         if (iconsVisible) {
             AnimatedIconRow(icon, onIconChange, Modifier.padding(top = 8.dp))
