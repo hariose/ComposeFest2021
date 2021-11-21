@@ -1,4 +1,5 @@
-package com.codelab.theming.ui.finish.theme
+package com.codelab.theming.ui.start.theme
+
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
