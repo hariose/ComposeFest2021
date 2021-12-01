@@ -75,22 +75,25 @@ fun RallyApp() {
 
         val accountsName = RallyScreen.Accounts.name
 
+
         Scaffold(
             topBar = {
                 RallyTabRow(
                     allScreens = allScreens,
                     onTabSelected = { screen ->
-                        navController.navigate(screen.name)
+                        navController.navigate(screen.name) {}
                     },
                     currentScreen = currentScreen,
                 )
             }
-        ) { innerPadding ->
+        )
+        { innerPadding ->
             NavHost(
                 navController = navController,
                 startDestination = RallyScreen.Overview.name,
                 modifier = Modifier.padding(innerPadding)
-            ) {
+            )
+            {
                 composable(
                     "$accountsName/{name}",
                     arguments = listOf(
@@ -99,27 +102,13 @@ fun RallyApp() {
                             type = NavType.StringType
                         }
                     )
-                ) { entry -> // Look up "name" in NavBackStackEntry's arguments
+                ) { entry ->
                     val accountName = entry.arguments?.getString("name")
-                    // Find first name match in UserData
                     val account = UserData.getAccount(accountName)
-                    // Pass account to SingleAccountBody
                     SingleAccountBody(account = account)
                 }
                 composable(RallyScreen.Overview.name) {
-                    OverviewBody(
-                        onAccountClick = { name ->
-                            navigateToSingleAccount(navController, name)
-                        },
-                    )
-                }
-                composable(RallyScreen.Accounts.name) {
-                    AccountsBody(accounts = UserData.accounts) { name ->
-                        navigateToSingleAccount(
-                            navController = navController,
-                            accountName = name
-                        )
-                    }
+                    OverviewBody()
                 }
                 composable(RallyScreen.Accounts.name) {
                     AccountsBody(accounts = UserData.accounts)
@@ -136,12 +125,4 @@ fun RallyApp() {
         }
 
     }
-}
-
-
-private fun navigateToSingleAccount(
-    navController: NavHostController,
-    accountName: String
-) {
-    navController.navigate("${RallyScreen.Accounts.name}/$accountName")
 }
